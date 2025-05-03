@@ -7,7 +7,7 @@ import AuthStorage from './src/utils/authStorage';
 import createApolloClient from './src/utils/apolloClient';
 import AuthStorageContext from './src/contexts/AuthStorageContext';
 
-const authStorage = new AuthStorage()
+const authStorage = new AuthStorage();
 const apolloClient = createApolloClient(authStorage);
 
 

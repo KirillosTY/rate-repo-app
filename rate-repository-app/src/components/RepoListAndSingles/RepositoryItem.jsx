@@ -1,5 +1,5 @@
-import {View, Image,StyleSheet, FlexBox } from "react-native"
-import Text from '../TextSets/Text'
+import {View, Image,StyleSheet, FlexBox } from "react-native";
+import Text from '../TextSets/Text';
 import theme from '../../styles/theme';
 
 const RepositoryItem = ({item}) => {
@@ -34,7 +34,7 @@ const RepositoryItem = ({item}) => {
       width: 50,
       padding:10
 
-    }})
+    }});
 
   return(
   <View style={style.container}>
@@ -71,8 +71,8 @@ const RepositoryItem = ({item}) => {
       </Text>
     </View>
 
-  </View>)
+  </View>);
 
-}
+};
 
-export default RepositoryItem
+export default RepositoryItem;

@@ -1,26 +1,26 @@
 import {TextInput,View,Text, StyleSheet, Pressable} from 'react-native';
-import {useFormik} from 'formik'
-import * as yup from 'yup'
+import {useFormik} from 'formik';
+import * as yup from 'yup';
 import useSignIn from '../../hooks/SignIn';
 import { useNavigate } from 'react-router-native';
 
 
 const SignIn = () => {
-  const navigate = useNavigate()
-  const {signIn, result} = useSignIn()
+  const navigate = useNavigate();
+  const {signIn} = useSignIn();
 
   const onSubmit =  async(values) => {
 
     const credentials = {
       username:values.username,
       password:values.password,
-    }
+    };
     try {
-      const {data} = await signIn(credentials)
-      navigate('/')
+      await signIn(credentials);
+      navigate('/');
       
     } catch(error){
-      console.log('error', error)
+      console.log('error', error);
     }
 
   };
@@ -68,7 +68,7 @@ const SignIn = () => {
       initialValues,
       validationSchema,
       onSubmit
-    })
+    });
 
 
   

@@ -8,7 +8,7 @@ class AuthStorage {
   async getAccessToken() {
     const auth = await AsyncStorage.getItem(
       `${this.namespace}:auth`
-    )
+    );
 
     return auth? auth: undefined;
   }
@@ -19,10 +19,10 @@ class AuthStorage {
       await AsyncStorage.setItem(
         `${this.namespace}:auth`,
         accessToken
-      )
+      );
     } catch(error){
-      console.log('error', error)
-      throw error
+      console.log('error', error);
+      throw error;
     }
   }
 
@@ -30,10 +30,10 @@ class AuthStorage {
     try {
       await AsyncStorage.removeItem(
         `${this.namespace}:auth`,
-      )
+      );
     } catch(error){
-      console.log('error', error)
-      throw error
+      console.log('error', error);
+      throw error;
     }
   }
 }

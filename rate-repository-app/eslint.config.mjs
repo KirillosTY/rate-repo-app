@@ -1,55 +1,48 @@
-import js from '@eslint/js';
-import react from 'eslint-plugin-react';
-import reactNative from 'eslint-plugin-react-native';
-import babelParser from '@babel/eslint-parser';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { FlatCompat } from '@eslint/eslintrc';
+import { defineConfig } from "eslint/config";
+import react from "eslint-plugin-react";
+import reactNative from "eslint-plugin-react-native";
+import babelParser from "@babel/eslint-parser";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import js from "@eslint/js";
+import { FlatCompat } from "@eslint/eslintrc";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const compat = new FlatCompat({
-  baseDirectory: __dirname,
+    baseDirectory: __dirname,
+    recommendedConfig: js.configs.recommended,
+    allConfig: js.configs.all
 });
 
-// Use compat to import legacy configs as flat-compatible rules
-export default [
-  ...compat.config({
-    extends: ['eslint:recommended', 'plugin:react/recommended'],
-  }),
-  {
-    files: ['**/*.js', '**/*.jsx'],
-    languageOptions: {
-      parser: babelParser,
-      parserOptions: {
-        requireConfigFile: false,
-        babelOptions: {
-          presets: ['@babel/preset-react'],
-        },
-        ecmaFeatures: {
-          jsx: true,
-        },
-        sourceType: 'module',
-      },
-      globals: {
-        ...reactNative.environments['react-native'].globals,
-        window: true,
-        document: true,
-        console: true,
-      },
-    },
+export default defineConfig([{
+    extends: compat.extends("eslint:recommended", "plugin:react/recommended"),
+
     plugins: {
-      react,
-      'react-native': reactNative,
+        react,
+        "react-native": reactNative,
     },
-    rules: {
-      'react/prop-types': 'off',
-      'react/react-in-jsx-scope': 'off',
+
+    languageOptions: {
+        globals: {
+            ...reactNative.environments["react-native"]["react-native"],
+            console: "readonly",  // ✅ Add this line
+
+        },
+
+        parser: babelParser,
     },
+
     settings: {
-      react: {
-        version: 'detect',
-      },
+        react: {
+            version: "detect",
+        },
     },
-  },
-];
+
+    rules: {
+        "react/prop-types": "off",
+        "react/react-in-jsx-scope": "off",
+        "semi": ["error", "always"],      
+
+    },
+}]);

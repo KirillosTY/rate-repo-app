@@ -17,11 +17,11 @@ const ItemSeparator = () => <View style={styles.separator} />;
 const RepositoryList = () => {
   const { data, error, loading} =  fetchRepositories();
 
-  console.log(loading, data,'listing')
+  console.log(loading, data,'listing');
   while(loading || error || !data){
     return (<View>
       <Text>Loading data</Text>
-    </View>)
+    </View>);
   }
 
 

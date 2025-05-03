@@ -1,5 +1,5 @@
-import {useQuery} from '@apollo/client'
-import {GET_REPOSITORIES} from '../graphql/queries'
+import {useQuery} from '@apollo/client';
+import {GET_REPOSITORIES} from '../graphql/queries';
 
 
 
@@ -8,11 +8,11 @@ import {GET_REPOSITORIES} from '../graphql/queries'
     const { data, error, loading } = useQuery(GET_REPOSITORIES, { 
       fetchPolicy: 'cache-and-network',
     });
-     console.log('repositories',loading, data)
+     console.log('repositories',loading, data);
      
       return { data, loading, error };
 
-   }
+   };
 
  
 
