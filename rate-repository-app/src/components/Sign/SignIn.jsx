@@ -1,11 +1,28 @@
 import {TextInput,View,Text, StyleSheet, Pressable} from 'react-native';
-import {useFormik,formik} from 'formik'
+import {useFormik} from 'formik'
 import * as yup from 'yup'
+import useSignIn from '../../hooks/SignIn';
+import { useNavigate } from 'react-router-native';
+
 
 const SignIn = () => {
+  const navigate = useNavigate()
+  const {signIn, result} = useSignIn()
 
-  const onSubmit = (values) => {
-    console.log(values);
+  const onSubmit =  async(values) => {
+
+    const credentials = {
+      username:values.username,
+      password:values.password,
+    }
+    try {
+      const {data} = await signIn(credentials)
+      navigate('/')
+      
+    } catch(error){
+      console.log('error', error)
+    }
+
   };
 
   const initialValues = {
@@ -13,6 +30,7 @@ const SignIn = () => {
     password:'',
   };
 
+  
 
   const validationSchema = yup.object().shape({
     username: yup
@@ -52,6 +70,8 @@ const SignIn = () => {
       onSubmit
     })
 
+
+  
   
 
 

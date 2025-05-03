@@ -2,7 +2,7 @@ import { Text, StyleSheet, View } from 'react-native';
 import RepositoryList from './RepoListAndSingles/RepositoryList';
 import AppBar from './AppBar/AppBar';
 import { Routes, Route } from 'react-router-native';
-import SignIn from './SignIn/SignIn';
+import SignIn from './Sign/SignIn';
 
 const styles = StyleSheet.create({
   container: {
