@@ -37,7 +37,7 @@ const RepositoryItem = ({item}) => {
     }});
 
   return(
-  <View style={style.container}>
+  <View testID="repositoryItem" style={style.container}>
     <View style={style.nameAndImgcontainer}>
       <Image 
       style={style.image}
