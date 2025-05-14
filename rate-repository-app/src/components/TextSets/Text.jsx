@@ -27,9 +27,12 @@ const styles = StyleSheet.create({
     paddingBottom:theme.Headline.paddingBottom,
     paddingLeft:theme.Headline.paddingLeft 
   },
-  decription: {
-    fontSize: theme.decription.fontSize,
-    padding: theme.decription.padding
+  description: {
+    fontSize: theme.description.fontSize,
+    padding: theme.description.padding,
+    flexDirection:'column',
+    flexGrow:1
+    
 
   },
   language:{
@@ -38,14 +41,16 @@ const styles = StyleSheet.create({
     color: theme.language.color,
     fontSize: theme.language.fontSize,
     padding: theme.language.padding,
-    fontWeight:theme.language.fontWeight
+    fontWeight:theme.language.fontWeight,
+    height:40
   }
 });
 
 const Text = ({ color, fontSize,fontFamily, fontWeight,type, style, ...props }) => {
   const textStyle = [
+    styles.text,
     type === 'headline' && styles.headline,
-    type === 'description' && styles.decription,
+    type === 'description' && styles.description,
     type === 'language' && styles.language,
     type === '' && styles.text,
     color === 'textSecondary' && styles.colorTextSecondary,

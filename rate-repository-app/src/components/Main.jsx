@@ -1,8 +1,11 @@
 import { Text, StyleSheet, View } from 'react-native';
 import RepositoryList from './RepoListAndSingles/RepositoryList';
 import AppBar from './AppBar/AppBar';
-import { Routes, Route } from 'react-router-native';
+import { Routes, Route,  } from 'react-router-native';
 import SignIn from './Sign/SignIn';
+import RepositoryItem from './RepoListAndSingles/RepositoryItem';
+import RepositorySingleView from './RepoListAndSingles/RepositorySingleView';
+import CreateReview from './Review/CreateReview';
 
 const styles = StyleSheet.create({
   container: {
@@ -12,6 +15,8 @@ const styles = StyleSheet.create({
 });
 
 const Main = () => {
+
+
   return (
     <View style={styles.container}>
     <AppBar></AppBar>
@@ -19,7 +24,9 @@ const Main = () => {
       <Routes>
         <Route path="/" element={<RepositoryList></RepositoryList>}/>
         <Route path="/Sign" element={<SignIn/>}/>
+        <Route path="/Creview" element={<CreateReview/>}/>
 
+        <Route path=':id' element={<RepositorySingleView/>}></Route>
       </Routes>
     </View>
   );

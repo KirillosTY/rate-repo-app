@@ -5,7 +5,7 @@ export const GET_REPOSITORIES = gql`
     repositories {
       edges {
       node { 
-       
+        id       
         createdAt
         fullName
         
@@ -39,7 +39,55 @@ export const ME = gql`
 `;
 
 
+export const GET_REPOSITORY = gql`
+  query Repository($repositoryId: ID!) {
+    repository(id: $repositoryId) {
+      id
+      ownerName
+      name
+      createdAt
+      fullName
+      reviews {
+        totalCount
+      }
+      ratingAverage
+      reviewCount
+      stargazersCount
+      watchersCount
+      forksCount
+      openIssuesCount
+      url
+      ownerAvatarUrl
+      description
+      language
+      userHasReviewed
+    }
+  }
+`;
 
+
+export const GET_REVIEW = gql`
+query Reviews($repositoryId: ID!){
+  repository(id: $repositoryId) {
+    id
+    fullName
+    reviews {
+      edges {
+        node {
+          id
+          text
+          rating
+          createdAt
+          user {
+            id
+            username
+          }
+        }
+      }
+    }
+  }
+}
+`;
 
 
 // other queries...

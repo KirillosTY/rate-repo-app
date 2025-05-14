@@ -22,12 +22,11 @@ const theme = {
     bold: '700',
   },
   numerals: {
-    display:'flex-start',
-    flex:3,
-    marginLeft:20,
-    marginRight:20,
+    display:'flex',
+    margin:20,
     flexDirection: 'row',
-    justifyContent:'space-evenly'
+    justifyContent:'space-evenly',
+    
 
   },
   Headline: {
@@ -36,9 +35,10 @@ const theme = {
     paddingBottom:5,
     paddingLeft:5
   },
-  decription: {
+  description: {
     fontSize: 18,
-    padding:5
+    padding:5,
+    flexWrap:'wrap'
 
   },
   language:{
@@ -47,6 +47,7 @@ const theme = {
     color:"#e1e8e3",
     fontSize: 20,
     padding:5,
+    margin:10,
     fontWeight:'bold'
   }
 };

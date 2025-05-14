@@ -1,18 +1,37 @@
-import {View, Image,StyleSheet, FlexBox } from "react-native";
+import {View, Image,StyleSheet, FlexBox, Pressable, Button, Linking } from "react-native";
 import Text from '../TextSets/Text';
 import theme from '../../styles/theme';
+import { useNavigate } from "react-router-native";
 
-const RepositoryItem = ({item}) => {
+const RepositoryItem = ({item, singleView}) => {  
 
+  const navigate = useNavigate()
+  
+  console.log(item);
+  
+  let showButton = false;
+  
+
+  if(singleView){
+    showButton = true;
+  } 
+
+  const onClickRepo= async(id) =>{
+    if(!singleView){
+      navigate(id)
+
+    }
+
+  
+
+}
   const style = StyleSheet.create({
     container: {
       padding: 10,
-      display:'wrap',
       flexDirection:'column',
-      flexWrap:'wrap',
-      display:'block',
-
-      
+      margin:10,
+      flexGrow: 1,
+      flex:1,
     },
     nameAndImgcontainer: {
       flex:1,
@@ -23,10 +42,10 @@ const RepositoryItem = ({item}) => {
 
     },
     nameAndDescContainer: {
-      flex:2,
       flexDirection:'column',
       justifyContent:'space-evenly',
-      paddingLeft:10
+      paddingLeft:10,
+      alignSelf:'flex-start'
       
     },
     image: {
@@ -34,10 +53,20 @@ const RepositoryItem = ({item}) => {
       width: 50,
       padding:10
 
-    }});
+    },
+    button:{
+      height:50,
+      width:100,
+    },
+    pressable:{
+      flex:1
+    }
+  
+  });
 
   return(
-  <View testID="repositoryItem" style={style.container}>
+    <Pressable style={style.container} onPress={() => onClickRepo(item.id)}>
+  <View style={style.pressable} testID="repositoryItem"  >
     <View style={style.nameAndImgcontainer}>
       <Image 
       style={style.image}
@@ -52,7 +81,7 @@ const RepositoryItem = ({item}) => {
         </Text>
         <Text type= 'language'>
       {item.language}
-    </Text>
+        </Text>
       </View>
     </View>
    
@@ -69,10 +98,22 @@ const RepositoryItem = ({item}) => {
       <Text>
         Rating: {item.ratingAverage > 1000 ? Math.round(item.ratingAverage/100,2)/10+"k": item.ratingAverage}
       </Text>
-    </View>
 
-  </View>);
+    </View>
+    {showButton? 
+    <Button onPress={() => Linking.openURL(item.url)} style={style.button} display={false} title="Github"></Button>: undefined
+
+    }
+
+  </View>
+  
+  
+  </Pressable>)
+  
+  ;
 
 };
+
+
 
 export default RepositoryItem;
