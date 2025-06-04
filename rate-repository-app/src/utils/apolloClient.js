@@ -25,6 +25,8 @@ const createApolloClient = (authStorage) => {
   const httpLink = createHttpLink({
     uri:Constants.expoConfig.extra.apollo_uri
   });
+    console.log('uri', Constants.expoConfig.extra.apollo_uri);
+    console.log('httpLink', httpLink);  
   return new ApolloClient({
     link: authLink.concat(httpLink),
     cache: new InMemoryCache(),
