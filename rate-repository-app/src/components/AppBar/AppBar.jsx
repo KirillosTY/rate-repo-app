@@ -6,6 +6,7 @@ import useAuthStorage from '../../hooks/useAuthStorage';
 import { useQuery } from '@apollo/client';
 import { ME } from '../../graphql/queries';
 import { useApolloClient } from '@apollo/client';
+import useMeFetch from '../../hooks/useMe';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,18 +27,26 @@ const styles = StyleSheet.create({
 const AppBar = () => {
   const apolloClient  = useApolloClient();
   let signed = null;
+  
   const authStorage = useAuthStorage();
   console.log('first',authStorage.getAccessToken);
-  const {data}= useQuery(ME);
+  console.log('authStorage', authStorage)
+  const  {data}= useMeFetch(false)
 
   if(data){
+    console.log('data.me', data.me)
     signed = data.me;
   }
+  console.log('signed', signed)
 
   const handleLogout = () => {
     authStorage.removeAccessToken();
     apolloClient.resetStore();
   };
+
+  const handleMyReviews = () => {
+
+  }
  
   return(
     <View style={styles.container}>
@@ -49,7 +58,7 @@ const AppBar = () => {
            
 
             {
-             signed !== null?
+             signed?
              <>
              <Link to="/Creview">
               <Text style={styles.item}>Create Review</Text>

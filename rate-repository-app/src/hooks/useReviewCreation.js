@@ -1,4 +1,5 @@
 import { CREATE_REVIEW } from "../graphql/mutations";
+import { ME } from "../graphql/queries";
 import { useMutation } from "@apollo/client";
 
 const useCreateReview = () =>{
@@ -8,7 +9,14 @@ const useCreateReview = () =>{
 
   const createReview = async(review) => {
     try {
-      const data  = await mutate({variables:{review}});
+      const data  = await mutate({variables:{review},
+           refetchQueries: [
+                {query: ME,
+                  variables: {
+                    includeReviews: true
+                  }
+                }]
+              });
       return data;
     } catch(error){
       throw new Error(error);

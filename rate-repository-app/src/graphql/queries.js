@@ -30,12 +30,27 @@ export const GET_REPOSITORIES = gql`
 
 
 export const ME = gql`
-{
+query  getCurrentUser($includeReviews: Boolean!){
   me {
     id
     username
+     reviews @include(if: $includeReviews) {
+        edges {
+          node {
+          id
+         
+          repository {
+            fullName
+            id
+          }
+          userId
+          repositoryId
+          rating
+          createdAt
+          text
+        }
   }
-}
+     }}}
 `;
 
 
@@ -67,27 +82,38 @@ export const GET_REPOSITORY = gql`
 
 
 export const GET_REVIEW = gql`
-query Reviews($repositoryId: ID!){
+query Reviews($repositoryId: ID!, $pageSize: Int, $after: String){
   repository(id: $repositoryId) {
     id
     fullName
-    reviews {
-      edges {
-        node {
-          id
-          text
-          rating
-          createdAt
-          user {
+    reviews(first: $pageSize, after: $after) {
+        totalCount
+        edges {
+          node {
             id
-            username
+            text
+            rating
+            createdAt
+            repositoryId
+            user {
+              id
+              username
+            }
           }
+          cursor
+        }
+        pageInfo {
+          endCursor
+          startCursor
+          hasNextPage
         }
       }
     }
   }
-}
+
 `;
+
+
 
 
 // other queries...

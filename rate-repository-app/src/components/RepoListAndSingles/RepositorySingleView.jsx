@@ -72,23 +72,33 @@ const ReviewItem = ({review}) => {
 }
 
 
-const RepositorySingleView = () => {  
+const RepositorySingleView =  () => {  
 
   const {id} = useParams()
+  
+  const {data,loading,fetchMore} =  useRepoReview(id)
   const repositoryData = useSingleRepoQuery(id)
-  const reviewData = useRepoReview(id)
    
-  if(repositoryData.loading || reviewData.loading ){
+  if(repositoryData.loading  || loading ){
     return (<View> <Text>Loading!</Text></View>)
   }
-  
-  const reviews= reviewData? reviewData.data.repository.reviews.edges.map(edge => edge.node): []
+const onEndReach = () => {
+    fetchMore();
+  };
+
+
+  console.log('data', loading, data)
+  const reviews= data? data.repository.reviews.edges.map(edge => edge.node): []
   return (
     <FlatList
       data={reviews}
       renderItem={({ item }) => <ReviewItem review={item} />}
       keyExtractor={({ id }) => id}
-      ListHeaderComponent={() => <SingleRepository repository={repositoryData.data.repository} />}
+      ListHeaderComponent={() => <SingleRepository repository={repositoryData.data.repository}/>
+    
+    }
+    onEndReached={onEndReach}
+    onEndReachedThreshold={4}
       // ...
     />
   );
